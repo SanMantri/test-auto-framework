@@ -249,11 +249,26 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
     }
 
     /**
+     * Get the current Playwright Page instance.
+     * Preferred accessor method for tests.
+     */
+    protected Page getPage() {
+        return pageHolder.get();
+    }
+
+    /**
+     * Get the test data cache for current test.
+     */
+    protected TestDataCache getTestData() {
+        return testDataHolder.get();
+    }
+
+    /**
      * Create page object with current page
      */
-    protected <T extends BasePage> T getPage(Class<T> pageClass) {
+    protected <T extends BasePage> T createPage(Class<T> pageClass) {
         try {
-            return pageClass.getConstructor(Page.class).newInstance(page());
+            return pageClass.getConstructor(Page.class).newInstance(getPage());
         } catch (Exception e) {
             throw new RuntimeException("Failed to create page object: " + pageClass, e);
         }
@@ -262,9 +277,9 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
     /**
      * Create page object with current page and base URL
      */
-    protected <T extends BasePage> T getPage(Class<T> pageClass, String baseUrl) {
+    protected <T extends BasePage> T createPage(Class<T> pageClass, String baseUrl) {
         try {
-            return pageClass.getConstructor(Page.class, String.class).newInstance(page(), baseUrl);
+            return pageClass.getConstructor(Page.class, String.class).newInstance(getPage(), baseUrl);
         } catch (Exception e) {
             throw new RuntimeException("Failed to create page object: " + pageClass, e);
         }

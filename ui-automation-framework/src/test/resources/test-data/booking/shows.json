@@ -1,0 +1,88 @@
+{
+  "movies": [
+    {
+      "id": "MOVIE-001",
+      "title": "Test Movie 1",
+      "genre": "Action",
+      "duration": 150,
+      "rating": "PG-13"
+    },
+    {
+      "id": "MOVIE-002",
+      "title": "Test Movie 2",
+      "genre": "Comedy",
+      "duration": 120,
+      "rating": "PG"
+    }
+  ],
+  "theaters": [
+    {
+      "id": "THEATER-001",
+      "name": "Test Cinema",
+      "city": "Test City",
+      "screens": [
+        {
+          "id": "SCREEN-001",
+          "name": "Screen 1",
+          "seatLayout": {
+            "rows": ["A", "B", "C", "D", "E", "F", "G", "H"],
+            "seatsPerRow": 15,
+            "categories": {
+              "PLATINUM": ["A", "B"],
+              "GOLD": ["C", "D", "E"],
+              "SILVER": ["F", "G", "H"]
+            },
+            "pricing": {
+              "PLATINUM": 500,
+              "GOLD": 350,
+              "SILVER": 200
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "shows": [
+    {
+      "id": "SHOW-001",
+      "movieId": "MOVIE-001",
+      "theaterId": "THEATER-001",
+      "screenId": "SCREEN-001",
+      "showTime": "10:00",
+      "date": "2024-12-15"
+    },
+    {
+      "id": "SHOW-002",
+      "movieId": "MOVIE-001",
+      "theaterId": "THEATER-001",
+      "screenId": "SCREEN-001",
+      "showTime": "14:00",
+      "date": "2024-12-15"
+    },
+    {
+      "id": "SHOW-003",
+      "movieId": "MOVIE-001",
+      "theaterId": "THEATER-001",
+      "screenId": "SCREEN-001",
+      "showTime": "18:00",
+      "date": "2024-12-15"
+    }
+  ],
+  "snacks": [
+    {
+      "id": "popcorn-large",
+      "name": "Large Popcorn",
+      "price": 250
+    },
+    {
+      "id": "coke",
+      "name": "Coke Regular",
+      "price": 100
+    },
+    {
+      "id": "nachos",
+      "name": "Nachos with Cheese",
+      "price": 200
+    }
+  ]
+}

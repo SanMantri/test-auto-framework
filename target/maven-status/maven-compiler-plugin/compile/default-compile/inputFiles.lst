@@ -1,0 +1,10 @@
+/Users/mantri/Desktop/SDET/src/main/java/com/company/automation/core/agent/LlmClient.java
+/Users/mantri/Desktop/SDET/src/main/java/com/company/automation/playbooks/CheckoutPlaybook.java
+/Users/mantri/Desktop/SDET/src/main/java/com/company/automation/pages/payment/PaymentPage.java
+/Users/mantri/Desktop/SDET/src/main/java/com/company/automation/core/agent/discovery/JourneyDiscoverer.java
+/Users/mantri/Desktop/SDET/src/main/java/com/company/automation/AutomationApplication.java
+/Users/mantri/Desktop/SDET/src/main/java/com/company/automation/pages/booking/SeatSelectionPage.java
+/Users/mantri/Desktop/SDET/src/main/java/com/company/automation/pages/dashboard/AnalyticsDashboardPage.java
+/Users/mantri/Desktop/SDET/src/main/java/com/company/automation/core/agent/AgenticBrowser.java
+/Users/mantri/Desktop/SDET/src/main/java/com/company/automation/core/context/ContextManager.java
+/Users/mantri/Desktop/SDET/src/main/java/com/company/automation/core/driver/PlaywrightFactory.java

@@ -1,0 +1,51 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# Staging Environment Configuration
+# ═══════════════════════════════════════════════════════════════════════════════
+
+framework:
+  base-url: https://staging.example.com
+  api-base-url: https://api.staging.example.com
+
+  browser:
+    headless: true
+    slow-mo: 0
+
+  screenshots:
+    on-success: false
+
+  video:
+    enabled: false
+
+  trace:
+    enabled: false
+
+  auth:
+    default-user: staging-test@example.com
+    default-password: StagingTest@123
+
+  parallel:
+    thread-count: 8
+
+# Staging API configuration
+api:
+  logging:
+    level: HEADERS
+
+# Staging logging
+logging:
+  level:
+    com.framework: INFO
+    com.microsoft.playwright: WARN
+
+# Domain configs for staging
+domains:
+  payments:
+    gateway: stripe-test
+
+  booking:
+    seat-lock-ttl-seconds: 300
+
+  dashboard:
+    visual-testing:
+      enabled: true
+      diff-threshold: 0.03  # Stricter in staging

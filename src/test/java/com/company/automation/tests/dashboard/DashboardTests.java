@@ -24,7 +24,7 @@ public class DashboardTests extends BaseTest {
 
         // Agentic Check: What does the page actually "look" like to an AI?
         AgenticBrowser.AgentObservation obs = agent.observe(page);
-        System.out.println("AI Observation Title: " + obs.title);
+        System.out.println("AI Observation Title: " + obs.title());
 
         // In a real implementation:
         // boolean looksCorrect = openAI.ask("Does this chart look broken?",

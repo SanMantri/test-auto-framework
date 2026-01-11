@@ -95,6 +95,11 @@ public class Order {
         private String last4;
         private String brand;
         private String transactionId;
+        private String status;
+
+        public String getStatus() {
+            return status;
+        }
     }
 
     // Convenience methods
@@ -112,5 +117,36 @@ public class Order {
 
     public boolean isCancelled() {
         return status == OrderStatus.CANCELLED || status == OrderStatus.REFUNDED;
+    }
+
+    /**
+     * Gets the payment method string (e.g., "credit_card", "upi")
+     */
+    public String getPaymentMethod() {
+        return payment != null ? payment.getMethod() : null;
+    }
+
+    /**
+     * Gets the payment details object
+     */
+    public PaymentInfo getPaymentDetails() {
+        return payment;
+    }
+
+    /**
+     * Gets the discount amount (alias for discount field)
+     */
+    public BigDecimal getDiscountAmount() {
+        return discount != null ? discount : BigDecimal.ZERO;
+    }
+
+    /**
+     * Calculates total quantity of all items
+     */
+    public int getTotalQuantity() {
+        if (items == null || items.isEmpty()) {
+            return 0;
+        }
+        return items.stream().mapToInt(OrderItem::getQuantity).sum();
     }
 }

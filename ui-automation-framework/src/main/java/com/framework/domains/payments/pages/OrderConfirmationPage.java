@@ -80,6 +80,13 @@ public class OrderConfirmationPage extends BasePage {
     // ORDER INFORMATION
     // ═══════════════════════════════════════════════════════════════════════════
 
+    @Step("Get order ID")
+    public String getOrderId() {
+        String text = getText(ORDER_NUMBER);
+        // Extract order ID from text like "Order #ORD-123456"
+        return text.replaceAll(".*#", "").replaceAll("[^a-zA-Z0-9-]", "").trim();
+    }
+
     @Step("Get order number")
     public String getOrderNumber() {
         String text = getText(ORDER_NUMBER);

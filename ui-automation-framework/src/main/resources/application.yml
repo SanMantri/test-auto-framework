@@ -1,0 +1,129 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# UI Automation Framework - Main Configuration
+# ═══════════════════════════════════════════════════════════════════════════════
+
+spring:
+  application:
+    name: ui-automation-framework
+  profiles:
+    active: ${ENVIRONMENT:dev}
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# FRAMEWORK CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════════
+
+framework:
+  # Environment identifier
+  environment: ${ENVIRONMENT:dev}
+
+  # Base URLs - Override per environment
+  base-url: ${BASE_URL:https://dev.example.com}
+  api-url: ${API_URL:https://api.dev.example.com}
+
+  # Browser Configuration
+  browser:
+    type: ${BROWSER:chromium}  # chromium, firefox, webkit
+    headless: ${HEADLESS:true}
+    slow-mo: ${SLOW_MO:0}  # Milliseconds to slow down operations
+    tracing-enabled: ${TRACE_ENABLED:false}
+    default-timeout: 30000
+    viewport:
+      width: 1920
+      height: 1080
+
+  # Authentication - credentials for different user roles
+  auth:
+    admin:
+      username: ${ADMIN_USER:admin@example.com}
+      password: ${ADMIN_PASSWORD:Admin@123}
+    user:
+      username: ${TEST_USER:testuser@example.com}
+      password: ${TEST_PASSWORD:Test@123}
+
+  # Parallel Execution
+  parallel:
+    enabled: true
+    thread-count: ${THREAD_COUNT:4}
+
+  # Retry Configuration
+  retry:
+    max-attempts: 2
+    delay-seconds: 1
+
+  # Network Logging
+  network:
+    log-requests: true
+    log-responses: true
+    log-path: target/network-logs
+    capture-har: ${CAPTURE_HAR:false}
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# API CLIENT CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════════
+
+api:
+  connection:
+    timeout: 30000
+    read-timeout: 60000
+  logging:
+    enabled: true
+    level: ALL  # ALL, HEADERS, BODY, NONE
+  retry:
+    max-attempts: 3
+    delay-ms: 1000
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ALLURE REPORTING
+# ═══════════════════════════════════════════════════════════════════════════════
+
+allure:
+  results:
+    directory: target/allure-results
+  report:
+    directory: target/allure-report
+  attachments:
+    screenshots: true
+    network-logs: true
+    page-source: false
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# LOGGING CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════════
+
+logging:
+  level:
+    root: INFO
+    com.framework: DEBUG
+    com.microsoft.playwright: WARN
+    io.restassured: WARN
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: target/logs/test-automation.log
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# DOMAIN-SPECIFIC CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════════════════
+
+domains:
+  payments:
+    enabled: true
+    test-mode: true
+    gateway: stripe
+
+  booking:
+    enabled: true
+    seat-lock-ttl-seconds: 300
+    max-seats-per-booking: 10
+
+  playbook:
+    enabled: true
+    execution-timeout-seconds: 300
+    max-concurrent-executions: 5
+
+  dashboard:
+    enabled: true
+    visual-testing:
+      enabled: true
+      baseline-path: src/test/resources/visual-baselines
+      diff-threshold: 0.05

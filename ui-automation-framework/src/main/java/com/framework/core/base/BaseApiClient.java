@@ -229,6 +229,20 @@ public abstract class BaseApiClient {
         return response.jsonPath().getInt(path);
     }
 
+    /**
+     * Validates response status is 204 (No Content).
+     */
+    protected void assertNoContent(Response response) {
+        validateStatus(response, 204);
+    }
+
+    /**
+     * Validates response status is 202 (Accepted).
+     */
+    protected void assertAccepted(Response response) {
+        validateStatus(response, 202);
+    }
+
     // ═══════════════════════════════════════════════════════════════════════════
     // UTILITY
     // ═══════════════════════════════════════════════════════════════════════════

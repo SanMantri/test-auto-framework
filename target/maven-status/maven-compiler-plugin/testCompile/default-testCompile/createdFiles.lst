@@ -1,0 +1,4 @@
+com/company/automation/tests/booking/BookingTests.class
+com/company/automation/tests/payment/PaymentTests.class
+com/company/automation/tests/dashboard/DashboardTests.class
+com/company/automation/tests/BaseTest.class

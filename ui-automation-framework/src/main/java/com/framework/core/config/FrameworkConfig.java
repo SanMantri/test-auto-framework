@@ -29,7 +29,7 @@ public class FrameworkConfig {
         private boolean headless = true;
         private int slowMo = 0;
         private ViewportConfig viewport = new ViewportConfig();
-        private boolean tracingEnabled = true;
+        private boolean tracingEnabled = false;
         private int defaultTimeout = 30000;
 
         @Data

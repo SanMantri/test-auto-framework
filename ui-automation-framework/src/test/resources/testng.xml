@@ -1,0 +1,138 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="UI Automation Test Suite" parallel="classes" thread-count="4" verbose="1">
+
+    <!-- Listeners -->
+    <listeners>
+        <listener class-name="com.framework.core.listeners.TestListener"/>
+        <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
+    </listeners>
+
+    <!-- Parameters -->
+    <parameter name="browser" value="chromium"/>
+    <parameter name="environment" value="dev"/>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <!-- SMOKE TEST SUITE -->
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <test name="Smoke Tests" enabled="true">
+        <groups>
+            <run>
+                <include name="smoke"/>
+            </run>
+        </groups>
+        <packages>
+            <package name="com.framework.tests.*"/>
+        </packages>
+    </test>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <!-- PAYMENTS DOMAIN TESTS -->
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <test name="Payments Tests" enabled="true">
+        <parameter name="domain" value="payments"/>
+        <classes>
+            <class name="com.framework.tests.payments.PaymentFlowTest">
+                <methods>
+                    <include name="testSuccessfulVisaPayment"/>
+                    <include name="testSuccessfulMastercardPayment"/>
+                    <include name="testSuccessfulAmexPayment"/>
+                    <include name="testPaymentWith3DSAuthentication"/>
+                    <include name="testDeclinedCardPayment"/>
+                    <include name="testInsufficientFundsPayment"/>
+                    <include name="testSuccessfulUPIPayment"/>
+                    <include name="testPaymentWithCoupon"/>
+                    <include name="testOrderDetailsAfterPayment"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <!-- BOOKING DOMAIN TESTS -->
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <test name="Booking Tests" enabled="true">
+        <parameter name="domain" value="booking"/>
+        <classes>
+            <class name="com.framework.tests.booking.BookingFlowTest">
+                <methods>
+                    <include name="testViewAvailableShows"/>
+                    <include name="testSelectAvailableSeats"/>
+                    <include name="testCannotSelectBookedSeats"/>
+                    <include name="testSeatLockingPreventsRaceConditions"/>
+                    <include name="testCompleteBookingFlow"/>
+                    <include name="testCancelBookingWithinWindow"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <!-- PLAYBOOK DOMAIN TESTS -->
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <test name="Playbook Tests" enabled="true">
+        <parameter name="domain" value="playbook"/>
+        <classes>
+            <class name="com.framework.tests.playbook.PlaybookExecutionTest">
+                <methods>
+                    <include name="testCreateHttpPlaybook"/>
+                    <include name="testCreateSlackNotificationPlaybook"/>
+                    <include name="testCreateMultiStepPlaybook"/>
+                    <include name="testExecutePlaybookViaUI"/>
+                    <include name="testExecutePlaybookViaAPI"/>
+                    <include name="testMonitorExecutionProgress"/>
+                    <include name="testSlackNotificationSent"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <!-- DASHBOARD DOMAIN TESTS -->
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <test name="Dashboard Tests" enabled="true">
+        <parameter name="domain" value="dashboard"/>
+        <classes>
+            <class name="com.framework.tests.dashboard.DashboardTest">
+                <methods>
+                    <include name="testCreateKpiDashboard"/>
+                    <include name="testCreateChartDashboard"/>
+                    <include name="testAllWidgetsLoad"/>
+                    <include name="testKpiValueAccuracy"/>
+                    <include name="testTimeRangeFilter"/>
+                    <include name="testKpiDashboardVisualRegression"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <!-- REGRESSION TEST SUITE -->
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <test name="Full Regression" enabled="false">
+        <groups>
+            <run>
+                <include name="regression"/>
+                <exclude name="flaky"/>
+            </run>
+        </groups>
+        <packages>
+            <package name="com.framework.tests.*"/>
+        </packages>
+    </test>
+
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <!-- VISUAL REGRESSION TESTS -->
+    <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+    <test name="Visual Regression Tests" enabled="false">
+        <parameter name="visualTesting" value="true"/>
+        <groups>
+            <run>
+                <include name="visual"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.framework.tests.dashboard.DashboardTest"/>
+        </classes>
+    </test>
+
+</suite>

@@ -1,0 +1,135 @@
+{
+  "playbookTemplates": [
+    {
+      "id": "TPL-HTTP-NOTIFY",
+      "name": "HTTP to Slack Notification",
+      "description": "Calls an HTTP endpoint and sends result to Slack",
+      "category": "Notifications",
+      "steps": [
+        {
+          "id": "step-1",
+          "name": "Call API",
+          "type": "HTTP_REQUEST",
+          "config": {
+            "method": "GET",
+            "url": "{{api_url}}"
+          }
+        },
+        {
+          "id": "step-2",
+          "name": "Notify Slack",
+          "type": "SEND_SLACK",
+          "config": {
+            "channel": "{{slack_channel}}",
+            "message": "API call completed: {{step-1.response.status}}"
+          }
+        }
+      ],
+      "variables": {
+        "api_url": {
+          "type": "STRING",
+          "required": true
+        },
+        "slack_channel": {
+          "type": "STRING",
+          "defaultValue": "#general"
+        }
+      }
+    },
+    {
+      "id": "TPL-SCHEDULED-REPORT",
+      "name": "Scheduled Report Generator",
+      "description": "Generates and emails a report on schedule",
+      "category": "Reporting",
+      "steps": [
+        {
+          "id": "step-1",
+          "name": "Fetch Data",
+          "type": "HTTP_REQUEST",
+          "config": {
+            "method": "GET",
+            "url": "{{data_endpoint}}"
+          }
+        },
+        {
+          "id": "step-2",
+          "name": "Transform Data",
+          "type": "TRANSFORM_DATA",
+          "config": {
+            "template": "{{report_template}}"
+          }
+        },
+        {
+          "id": "step-3",
+          "name": "Send Email",
+          "type": "SEND_EMAIL",
+          "config": {
+            "to": "{{recipients}}",
+            "subject": "Automated Report - {{date}}",
+            "body": "{{step-2.output}}"
+          }
+        }
+      ],
+      "trigger": {
+        "type": "SCHEDULED",
+        "cronExpression": "0 9 * * MON-FRI"
+      }
+    },
+    {
+      "id": "TPL-DATA-SYNC",
+      "name": "Data Synchronization",
+      "description": "Syncs data between two systems",
+      "category": "Integration",
+      "steps": [
+        {
+          "id": "step-1",
+          "name": "Fetch from Source",
+          "type": "HTTP_REQUEST",
+          "config": {
+            "method": "GET",
+            "url": "{{source_url}}"
+          }
+        },
+        {
+          "id": "step-2",
+          "name": "Transform",
+          "type": "TRANSFORM_DATA",
+          "config": {
+            "mapping": "{{field_mapping}}"
+          }
+        },
+        {
+          "id": "step-3",
+          "name": "Push to Destination",
+          "type": "HTTP_REQUEST",
+          "config": {
+            "method": "POST",
+            "url": "{{destination_url}}",
+            "body": "{{step-2.output}}"
+          }
+        },
+        {
+          "id": "step-4",
+          "name": "Notify Success",
+          "type": "SEND_SLACK",
+          "config": {
+            "channel": "#integrations",
+            "message": "Sync completed: {{step-3.response.recordCount}} records"
+          }
+        }
+      ]
+    }
+  ],
+  "testVariables": {
+    "http_endpoints": [
+      "https://httpbin.org/get",
+      "https://httpbin.org/post",
+      "https://httpbin.org/status/200"
+    ],
+    "slack_channels": [
+      "#general",
+      "#alerts",
+      "#test"
+    ]
+  }
+}

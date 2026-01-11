@@ -1,0 +1,158 @@
+{
+  "kpiDefinitions": [
+    {
+      "id": "revenue-total",
+      "name": "Total Revenue",
+      "metric": "revenue",
+      "aggregation": "SUM",
+      "format": "currency",
+      "comparison": "previous_period",
+      "testData": {
+        "currentValue": 1250000.00,
+        "previousValue": 1100000.00,
+        "target": 1500000.00,
+        "expectedChange": 13.64,
+        "expectedTrend": "UP"
+      }
+    },
+    {
+      "id": "orders-today",
+      "name": "Orders Today",
+      "metric": "order_count",
+      "aggregation": "COUNT",
+      "format": "number",
+      "comparison": "previous_day",
+      "testData": {
+        "currentValue": 523,
+        "previousValue": 487,
+        "target": 600,
+        "expectedChange": 7.39,
+        "expectedTrend": "UP"
+      }
+    },
+    {
+      "id": "avg-order-value",
+      "name": "Average Order Value",
+      "metric": "order_value",
+      "aggregation": "AVG",
+      "format": "currency",
+      "comparison": "previous_period",
+      "testData": {
+        "currentValue": 2390.06,
+        "previousValue": 2259.14,
+        "target": 2500.00,
+        "expectedChange": 5.80,
+        "expectedTrend": "UP"
+      }
+    },
+    {
+      "id": "conversion-rate",
+      "name": "Conversion Rate",
+      "metric": "conversions",
+      "aggregation": "RATE",
+      "format": "percentage",
+      "comparison": "previous_period",
+      "testData": {
+        "currentValue": 3.42,
+        "previousValue": 3.15,
+        "target": 4.00,
+        "expectedChange": 8.57,
+        "expectedTrend": "UP"
+      }
+    },
+    {
+      "id": "active-users",
+      "name": "Active Users",
+      "metric": "unique_users",
+      "aggregation": "COUNT_DISTINCT",
+      "format": "number",
+      "comparison": "previous_day",
+      "testData": {
+        "currentValue": 15234,
+        "previousValue": 16102,
+        "target": 20000,
+        "expectedChange": -5.39,
+        "expectedTrend": "DOWN"
+      }
+    }
+  ],
+  "timeRanges": {
+    "today": {
+      "label": "Today",
+      "preset": "today"
+    },
+    "last7days": {
+      "label": "Last 7 Days",
+      "preset": "last_7_days"
+    },
+    "last30days": {
+      "label": "Last 30 Days",
+      "preset": "last_30_days"
+    },
+    "thisMonth": {
+      "label": "This Month",
+      "preset": "this_month"
+    },
+    "lastMonth": {
+      "label": "Last Month",
+      "preset": "last_month"
+    },
+    "thisQuarter": {
+      "label": "This Quarter",
+      "preset": "this_quarter"
+    },
+    "thisYear": {
+      "label": "This Year",
+      "preset": "this_year"
+    }
+  },
+  "chartData": {
+    "revenueTrend": {
+      "type": "LINE_CHART",
+      "xAxis": "date",
+      "yAxis": "revenue",
+      "data": [
+        { "date": "2024-01-01", "revenue": 45000 },
+        { "date": "2024-01-02", "revenue": 52000 },
+        { "date": "2024-01-03", "revenue": 48000 },
+        { "date": "2024-01-04", "revenue": 61000 },
+        { "date": "2024-01-05", "revenue": 55000 },
+        { "date": "2024-01-06", "revenue": 67000 },
+        { "date": "2024-01-07", "revenue": 72000 }
+      ]
+    },
+    "revenueByCategory": {
+      "type": "BAR_CHART",
+      "xAxis": "category",
+      "yAxis": "revenue",
+      "data": [
+        { "category": "Electronics", "revenue": 450000 },
+        { "category": "Clothing", "revenue": 320000 },
+        { "category": "Home", "revenue": 280000 },
+        { "category": "Sports", "revenue": 150000 },
+        { "category": "Books", "revenue": 50000 }
+      ]
+    },
+    "orderDistribution": {
+      "type": "PIE_CHART",
+      "groupBy": "status",
+      "data": [
+        { "status": "Completed", "count": 4500, "percentage": 75 },
+        { "status": "Processing", "count": 900, "percentage": 15 },
+        { "status": "Cancelled", "count": 600, "percentage": 10 }
+      ]
+    }
+  },
+  "tableData": {
+    "recentOrders": {
+      "columns": ["order_id", "customer_name", "total", "status", "date"],
+      "data": [
+        { "order_id": "ORD-001", "customer_name": "John Doe", "total": 1299.99, "status": "Completed", "date": "2024-01-07" },
+        { "order_id": "ORD-002", "customer_name": "Jane Smith", "total": 849.50, "status": "Processing", "date": "2024-01-07" },
+        { "order_id": "ORD-003", "customer_name": "Bob Wilson", "total": 2150.00, "status": "Completed", "date": "2024-01-06" },
+        { "order_id": "ORD-004", "customer_name": "Alice Brown", "total": 450.25, "status": "Cancelled", "date": "2024-01-06" },
+        { "order_id": "ORD-005", "customer_name": "Charlie Davis", "total": 3200.00, "status": "Completed", "date": "2024-01-05" }
+      ]
+    }
+  }
+}

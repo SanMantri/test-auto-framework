@@ -1,0 +1,63 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# Production Environment Configuration
+# Use with EXTREME caution - only for smoke tests
+# ═══════════════════════════════════════════════════════════════════════════════
+
+framework:
+  base-url: https://www.example.com
+  api-base-url: https://api.example.com
+
+  browser:
+    headless: true
+    slow-mo: 0
+    timeout:
+      default: 60000  # Longer timeouts for prod
+
+  screenshots:
+    on-failure: true
+    on-success: false
+
+  video:
+    enabled: false
+
+  trace:
+    enabled: false
+
+  auth:
+    # Production uses dedicated test account
+    default-user: ${PROD_TEST_USER}
+    default-password: ${PROD_TEST_PASSWORD}
+    reuse-auth: true  # Always reuse to minimize logins
+
+  parallel:
+    thread-count: 2   # Limited parallelism in prod
+
+# Minimal API logging in prod
+api:
+  logging:
+    level: NONE
+  retry:
+    max-attempts: 5   # More retries for stability
+
+# Minimal logging in prod
+logging:
+  level:
+    root: WARN
+    com.framework: INFO
+
+# Production domain configs
+domains:
+  payments:
+    enabled: false    # Disable payment tests in prod!
+    test-mode: false
+
+  booking:
+    enabled: false    # Disable booking tests in prod!
+
+  playbook:
+    enabled: true     # Only read-only playbook tests
+
+  dashboard:
+    enabled: true     # Dashboard viewing tests only
+    visual-testing:
+      enabled: false  # No visual testing in prod

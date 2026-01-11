@@ -1,0 +1,47 @@
+# ═══════════════════════════════════════════════════════════════════════════════
+# Development Environment Configuration
+# ═══════════════════════════════════════════════════════════════════════════════
+
+framework:
+  base-url: https://dev.example.com
+  api-base-url: https://api.dev.example.com
+
+  browser:
+    headless: false  # Run headed in dev for debugging
+    slow-mo: 50      # Slow down for visibility
+
+  screenshots:
+    on-success: true  # Capture all screenshots in dev
+
+  video:
+    enabled: true     # Record videos in dev
+
+  trace:
+    enabled: true     # Enable traces for debugging
+
+  auth:
+    default-user: dev-test@example.com
+    default-password: DevTest@123
+
+# Dev-specific API endpoints
+api:
+  logging:
+    level: ALL        # Full logging in dev
+
+# Dev logging - more verbose
+logging:
+  level:
+    com.framework: TRACE
+    com.microsoft.playwright: DEBUG
+    io.restassured: DEBUG
+
+# Domain configs for dev
+domains:
+  payments:
+    gateway: stripe-test
+
+  booking:
+    seat-lock-ttl-seconds: 60  # Shorter locks in dev
+
+  playbook:
+    execution-timeout-seconds: 120

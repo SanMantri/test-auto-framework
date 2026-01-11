@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Product Defects",
+    "description": "Test failures caused by product bugs",
+    "matchedStatuses": ["failed"],
+    "messageRegex": ".*AssertionError.*"
+  },
+  {
+    "name": "Test Infrastructure",
+    "description": "Infrastructure and framework issues",
+    "matchedStatuses": ["broken"],
+    "messageRegex": ".*TimeoutException.*|.*NoSuchElementException.*|.*ConnectionException.*"
+  },
+  {
+    "name": "Environment Issues",
+    "description": "Test failures due to environment problems",
+    "matchedStatuses": ["broken"],
+    "messageRegex": ".*503.*|.*502.*|.*Connection refused.*"
+  },
+  {
+    "name": "Known Issues",
+    "description": "Tests failing due to known bugs",
+    "matchedStatuses": ["failed"],
+    "traceRegex": ".*KnownIssue.*"
+  },
+  {
+    "name": "Flaky Tests",
+    "description": "Tests with intermittent failures",
+    "matchedStatuses": ["failed", "broken"],
+    "traceRegex": ".*@Flaky.*"
+  }
+]

@@ -1,0 +1,97 @@
+{
+  "testCards": {
+    "visa": {
+      "success": {
+        "number": "4111111111111111",
+        "expiry": "12/28",
+        "cvv": "123",
+        "name": "Test User",
+        "expectedResult": "SUCCESS"
+      },
+      "declined": {
+        "number": "4000000000000002",
+        "expiry": "12/28",
+        "cvv": "123",
+        "name": "Test User",
+        "expectedResult": "DECLINED"
+      },
+      "3ds": {
+        "number": "4000000000003220",
+        "expiry": "12/28",
+        "cvv": "123",
+        "name": "Test User",
+        "expectedResult": "REQUIRES_3DS",
+        "otpCode": "123456"
+      },
+      "insufficientFunds": {
+        "number": "4000000000009995",
+        "expiry": "12/28",
+        "cvv": "123",
+        "name": "Test User",
+        "expectedResult": "INSUFFICIENT_FUNDS"
+      }
+    },
+    "mastercard": {
+      "success": {
+        "number": "5555555555554444",
+        "expiry": "12/28",
+        "cvv": "123",
+        "name": "Test User",
+        "expectedResult": "SUCCESS"
+      },
+      "3ds": {
+        "number": "5200000000001096",
+        "expiry": "12/28",
+        "cvv": "123",
+        "name": "Test User",
+        "expectedResult": "REQUIRES_3DS",
+        "otpCode": "123456"
+      }
+    },
+    "amex": {
+      "success": {
+        "number": "378282246310005",
+        "expiry": "12/28",
+        "cvv": "1234",
+        "name": "Test User",
+        "expectedResult": "SUCCESS"
+      }
+    }
+  },
+  "testUpi": {
+    "valid": {
+      "upiId": "test@upi",
+      "expectedResult": "SUCCESS"
+    },
+    "invalid": {
+      "upiId": "invalid-upi",
+      "expectedResult": "INVALID"
+    }
+  },
+  "testCoupons": {
+    "valid": {
+      "DISCOUNT10": {
+        "code": "DISCOUNT10",
+        "type": "PERCENTAGE",
+        "value": 10,
+        "minOrderValue": 100
+      },
+      "FLAT50": {
+        "code": "FLAT50",
+        "type": "FLAT",
+        "value": 50,
+        "minOrderValue": 200
+      }
+    },
+    "invalid": {
+      "EXPIRED2023": {
+        "code": "EXPIRED2023",
+        "expectedError": "Coupon has expired"
+      },
+      "NOTEXIST": {
+        "code": "NOTEXIST",
+        "expectedError": "Invalid coupon code"
+      }
+    }
+  }
+}
