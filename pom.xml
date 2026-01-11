@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.company</groupId>
+    <artifactId>automation-framework</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>Agentic Hybrid Test Automation Framework</name>
+    <description>
+        Enterprise-grade Playwright + Spring Boot + TestNG framework 
+        with Agentic AI capabilities, parallel execution, and sharding.
+    </description>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.5</version>
+        <relativePath/>
+    </parent>
+
+    <properties>
+        <java.version>17</java.version>
+        <playwright.version>1.48.0</playwright.version>
+        <testng.version>7.10.2</testng.version>
+        <rest-assured.version>5.5.0</rest-assured.version>
+        
+        <!-- Sharding Properties (set via -D or Jenkins) -->
+        <shard.total>1</shard.total>
+        <shard.index>0</shard.index>
+        <test.groups></test.groups>
+    </properties>
+
+    <dependencies>
+        <!-- Spring Boot -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.jupiter</groupId>
+                    <artifactId>junit-jupiter</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- Playwright -->
+        <dependency>
+            <groupId>com.microsoft.playwright</groupId>
+            <artifactId>playwright</artifactId>
+            <version>${playwright.version}</version>
+        </dependency>
+
+        <!-- TestNG -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- REST Assured (API Testing) -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${rest-assured.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Maven Surefire Plugin: Runs tests with Parallel & Sharding -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <!-- Use TestNG -->
+                    <suiteXmlFiles>
+                        <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                    
+                    <!-- PARALLEL EXECUTION: Fork multiple JVMs for max isolation -->
+                    <forkCount>2</forkCount>
+                    <reuseForks>true</reuseForks>
+                    
+                    <!-- SHARDING: Distribute tests across CI nodes -->
+                    <properties>
+                        <property>
+                            <name>shard.total</name>
+                            <value>${shard.total}</value>
+                        </property>
+                        <property>
+                            <name>shard.index</name>
+                            <value>${shard.index}</value>
+                        </property>
+                    </properties>
+                    
+                    <!-- Filter by groups (for Jenkins matrix) -->
+                    <groups>${test.groups}</groups>
+                    
+                    <!-- System Properties for framework config -->
+                    <systemPropertyVariables>
+                        <automation.headless>true</automation.headless>
+                        <automation.tracing.enabled>true</automation.tracing.enabled>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+
+            <!-- Playwright Browser Install Plugin -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>install-playwright-browsers</id>
+                        <phase>generate-test-resources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>exec:java</argument>
+                                <argument>-e</argument>
+                                <argument>-D</argument>
+                                <argument>exec.mainClass=com.microsoft.playwright.CLI</argument>
+                                <argument>-D</argument>
+                                <argument>exec.args=install chromium</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!-- Profiles for different shards (can be triggered by Jenkins) -->
+    <profiles>
+        <profile>
+            <id>shard-payment</id>
+            <properties>
+                <test.groups>payment,commerce</test.groups>
+            </properties>
+        </profile>
+        <profile>
+            <id>shard-booking</id>
+            <properties>
+                <test.groups>booking</test.groups>
+            </properties>
+        </profile>
+        <profile>
+            <id>shard-visual</id>
+            <properties>
+                <test.groups>visual,dashboard</test.groups>
+            </properties>
+        </profile>
+        <profile>
+            <id>regression</id>
+            <properties>
+                <test.groups>regression</test.groups>
+            </properties>
+        </profile>
+    </profiles>
+
+</project>

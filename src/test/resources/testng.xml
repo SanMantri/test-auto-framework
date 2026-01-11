@@ -1,0 +1,71 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<!--
+    TestNG Suite Configuration for Parallel Execution
+    
+    PARALLEL MODES:
+    - "methods"  : Each @Test method runs in its own thread (MAXIMUM parallelism)
+    - "tests"    : Each <test> block runs in its own thread
+    - "classes"  : Each test class runs in its own thread
+    - "instances": Each instance of a test class runs in its own thread
+    
+    THREAD-COUNT: Number of concurrent threads. Tune based on your machine/CI resources.
+    
+    SHARDING: Use multiple <test> blocks with different groups for CI matrix sharding.
+-->
+<suite name="AutomationSuite" parallel="methods" thread-count="5" verbose="1">
+
+    <listeners>
+        <listener class-name="org.testng.reporters.EmailableReporter2"/>
+    </listeners>
+
+    <!-- SHARD 1: Payment & Commerce Tests -->
+    <test name="PaymentTests" parallel="methods" thread-count="3">
+        <groups>
+            <run>
+                <include name="payment"/>
+                <include name="commerce"/>
+            </run>
+        </groups>
+        <packages>
+            <package name="com.company.automation.tests.payment.*"/>
+        </packages>
+    </test>
+
+    <!-- SHARD 2: Booking & Reservation Tests -->
+    <test name="BookingTests" parallel="methods" thread-count="3">
+        <groups>
+            <run>
+                <include name="booking"/>
+            </run>
+        </groups>
+        <packages>
+            <package name="com.company.automation.tests.booking.*"/>
+        </packages>
+    </test>
+
+    <!-- SHARD 3: Visual & Dashboard Tests -->
+    <test name="VisualTests" parallel="methods" thread-count="2">
+        <groups>
+            <run>
+                <include name="visual"/>
+                <include name="dashboard"/>
+            </run>
+        </groups>
+        <packages>
+            <package name="com.company.automation.tests.dashboard.*"/>
+        </packages>
+    </test>
+
+    <!-- SHARD 4: Regression (All Tests) -->
+    <test name="RegressionSuite" parallel="classes" thread-count="5">
+        <groups>
+            <run>
+                <include name="regression"/>
+            </run>
+        </groups>
+        <packages>
+            <package name="com.company.automation.tests.*"/>
+        </packages>
+    </test>
+
+</suite>
