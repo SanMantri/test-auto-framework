@@ -18,9 +18,9 @@ pipeline {
 
     // Environment variables
     environment {
-        JAVA_HOME = tool name: 'JDK17', type: 'jdk'
-        MAVEN_HOME = tool name: 'Maven3', type: 'maven'
-        PATH = "${JAVA_HOME}/bin:${MAVEN_HOME}/bin:${env.PATH}"
+        // JAVA_HOME = tool name: 'JDK17', type: 'jdk'
+        // MAVEN_HOME = tool name: 'Maven3', type: 'maven'
+        PATH = "/opt/homebrew/bin:/opt/homebrew/opt/openjdk/bin:${env.PATH}"
         
         // Playwright config
         PLAYWRIGHT_BROWSERS_PATH = "${WORKSPACE}/.playwright-browsers"
