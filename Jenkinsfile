@@ -84,59 +84,17 @@ pipeline {
             when {
                 expression { params.RUN_PARALLEL_SHARDS == true }
             }
-            parallel {
-                stage('Shard 1: Payment Tests') {
-                    steps {
-                        echo "💳 Running Payment Tests..."
-                        sh '''
-                            mvn test -P shard-payment \
-                                -Dautomation.headless=true \
-                                -Dautomation.tracing.enabled=true \
-                                -DforkCount=2 \
-                                -DthreadCount=${THREAD_COUNT}
-                        '''
-                    }
-                    post {
-                        always {
-                            archiveArtifacts artifacts: 'target/traces/**/*.zip', allowEmptyArchive: true
-                        }
-                    }
-                }
-
-                stage('Shard 2: Booking Tests') {
-                    steps {
-                        echo "🎟️ Running Booking Tests..."
-                        sh '''
-                            mvn test -P shard-booking \
-                                -Dautomation.headless=true \
-                                -Dautomation.tracing.enabled=true \
-                                -DforkCount=2 \
-                                -DthreadCount=${THREAD_COUNT}
-                        '''
-                    }
-                    post {
-                        always {
-                            archiveArtifacts artifacts: 'target/traces/**/*.zip', allowEmptyArchive: true
-                        }
-                    }
-                }
-
-                stage('Shard 3: Visual Tests') {
-                    steps {
-                        echo "📊 Running Visual/Dashboard Tests..."
-                        sh '''
-                            mvn test -P shard-visual \
-                                -Dautomation.headless=true \
-                                -Dautomation.tracing.enabled=true \
-                                -DforkCount=1 \
-                                -DthreadCount=2
-                        '''
-                    }
-                    post {
-                        always {
-                            archiveArtifacts artifacts: 'target/traces/**/*.zip', allowEmptyArchive: true
-                        }
-                    }
+            steps {
+                echo "🧪 Running All Tests..."
+                sh '''
+                    mvn test \
+                        -Dautomation.headless=true \
+                        -Dautomation.tracing.enabled=true
+                '''
+            }
+            post {
+                always {
+                    archiveArtifacts artifacts: 'target/traces/**/*.zip', allowEmptyArchive: true
                 }
             }
         }

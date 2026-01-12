@@ -96,9 +96,9 @@
                         <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
                     
-                    <!-- PARALLEL EXECUTION: Fork multiple JVMs for max isolation -->
-                    <forkCount>2</forkCount>
-                    <reuseForks>true</reuseForks>
+                    <!-- PARALLEL EXECUTION: Disabled forking to avoid SurefireBooterForkException on constrained agents -->
+                    <forkCount>0</forkCount>
+                    <!-- <reuseForks>true</reuseForks> -->
                     
                     <!-- SHARDING: Distribute tests across CI nodes -->
                     <properties>
@@ -112,8 +112,8 @@
                         </property>
                     </properties>
                     
-                    <!-- Filter by groups (for Jenkins matrix) -->
-                    <groups>${test.groups}</groups>
+                    <!-- Filter by groups (for Jenkins matrix) - DISABLED for initial run -->
+                    <!-- <groups>${test.groups}</groups> -->
                     
                     <!-- System Properties for framework config -->
                     <systemPropertyVariables>
