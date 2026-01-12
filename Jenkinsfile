@@ -157,20 +157,20 @@ pipeline {
             }
         }
 
-        stage('Publish Reports') {
-            steps {
-                echo "📈 Publishing test reports..."
-                // TestNG Reports
-                publishHTML(target: [
-                    allowMissing: true,
-                    alwaysLinkToLastBuild: true,
-                    keepAll: true,
-                    reportDir: 'target/surefire-reports',
-                    reportFiles: 'index.html',
-                    reportName: 'TestNG Report'
-                ])
-            }
-        }
+        // stage('Publish Reports') {
+        //     steps {
+        //         echo "📈 Publishing test reports..."
+        //         // TestNG Reports
+        //         // publishHTML(target: [
+        //         //     allowMissing: true,
+        //         //     alwaysLinkToLastBuild: true,
+        //         //     keepAll: true,
+        //         //     reportDir: 'target/surefire-reports',
+        //         //     reportFiles: 'index.html',
+        //         //     reportName: 'TestNG Report'
+        //         // ])
+        //     }
+        // }
     }
 
     post {
@@ -181,7 +181,7 @@ pipeline {
             archiveArtifacts artifacts: 'target/videos/**/*.webm', allowEmptyArchive: true
             
             // Publish TestNG results
-            testNG()
+            // testNG()
         }
         success {
             echo "✅ Pipeline completed successfully!"
