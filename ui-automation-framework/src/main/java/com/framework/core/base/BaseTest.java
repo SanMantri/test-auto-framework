@@ -264,6 +264,13 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
     }
 
     /**
+     * Alias for getTestData() - used by playbooks and test classes.
+     */
+    protected TestDataCache testData() {
+        return testDataHolder.get();
+    }
+
+    /**
      * Create page object with current page
      */
     protected <T extends BasePage> T createPage(Class<T> pageClass) {

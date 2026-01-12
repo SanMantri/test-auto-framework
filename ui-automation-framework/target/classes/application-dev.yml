@@ -3,30 +3,22 @@
 # ═══════════════════════════════════════════════════════════════════════════════
 
 framework:
+  environment: dev
   base-url: https://dev.example.com
-  api-base-url: https://api.dev.example.com
+  api-url: https://api.dev.example.com
 
   browser:
     headless: false  # Run headed in dev for debugging
     slow-mo: 50      # Slow down for visibility
-
-  screenshots:
-    on-success: true  # Capture all screenshots in dev
-
-  video:
-    enabled: true     # Record videos in dev
-
-  trace:
-    enabled: true     # Enable traces for debugging
+    tracing-enabled: true  # Enable traces for debugging
 
   auth:
-    default-user: dev-test@example.com
-    default-password: DevTest@123
-
-# Dev-specific API endpoints
-api:
-  logging:
-    level: ALL        # Full logging in dev
+    admin:
+      username: dev-admin@example.com
+      password: DevAdmin@123
+    user:
+      username: dev-test@example.com
+      password: DevTest@123
 
 # Dev logging - more verbose
 logging:

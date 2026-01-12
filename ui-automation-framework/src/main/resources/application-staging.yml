@@ -3,33 +3,25 @@
 # ═══════════════════════════════════════════════════════════════════════════════
 
 framework:
+  environment: staging
   base-url: https://staging.example.com
-  api-base-url: https://api.staging.example.com
+  api-url: https://api.staging.example.com
 
   browser:
     headless: true
     slow-mo: 0
-
-  screenshots:
-    on-success: false
-
-  video:
-    enabled: false
-
-  trace:
-    enabled: false
+    tracing-enabled: false
 
   auth:
-    default-user: staging-test@example.com
-    default-password: StagingTest@123
+    admin:
+      username: staging-admin@example.com
+      password: StagingAdmin@123
+    user:
+      username: staging-test@example.com
+      password: StagingTest@123
 
   parallel:
     thread-count: 8
-
-# Staging API configuration
-api:
-  logging:
-    level: HEADERS
 
 # Staging logging
 logging:

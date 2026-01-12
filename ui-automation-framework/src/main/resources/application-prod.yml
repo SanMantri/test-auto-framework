@@ -4,40 +4,27 @@
 # ═══════════════════════════════════════════════════════════════════════════════
 
 framework:
+  environment: prod
   base-url: https://www.example.com
-  api-base-url: https://api.example.com
+  api-url: https://api.example.com
 
   browser:
     headless: true
     slow-mo: 0
-    timeout:
-      default: 60000  # Longer timeouts for prod
-
-  screenshots:
-    on-failure: true
-    on-success: false
-
-  video:
-    enabled: false
-
-  trace:
-    enabled: false
+    tracing-enabled: false
+    default-timeout: 60000  # Longer timeouts for prod
 
   auth:
-    # Production uses dedicated test account
-    default-user: ${PROD_TEST_USER}
-    default-password: ${PROD_TEST_PASSWORD}
-    reuse-auth: true  # Always reuse to minimize logins
+    # Production uses dedicated test accounts
+    admin:
+      username: ${PROD_ADMIN_USER}
+      password: ${PROD_ADMIN_PASSWORD}
+    user:
+      username: ${PROD_TEST_USER}
+      password: ${PROD_TEST_PASSWORD}
 
   parallel:
     thread-count: 2   # Limited parallelism in prod
-
-# Minimal API logging in prod
-api:
-  logging:
-    level: NONE
-  retry:
-    max-attempts: 5   # More retries for stability
 
 # Minimal logging in prod
 logging:

@@ -27,7 +27,7 @@
             </run>
         </groups>
         <packages>
-            <package name="com.company.automation.tests.payment.*"/>
+            <package name="com.company.automation.tests.payment"/>
         </packages>
     </test>
 
@@ -39,7 +39,7 @@
             </run>
         </groups>
         <packages>
-            <package name="com.company.automation.tests.booking.*"/>
+            <package name="com.company.automation.tests.booking"/>
         </packages>
     </test>
 
@@ -52,7 +52,7 @@
             </run>
         </groups>
         <packages>
-            <package name="com.company.automation.tests.dashboard.*"/>
+            <package name="com.company.automation.tests.dashboard"/>
         </packages>
     </test>
 
@@ -64,7 +64,7 @@
             </run>
         </groups>
         <packages>
-            <package name="com.company.automation.tests.*"/>
+            <package name="com.company.automation.tests"/>
         </packages>
     </test>
 

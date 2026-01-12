@@ -1,0 +1,11 @@
+Started by user unknown or anonymous
+java.lang.NullPointerException: Cannot invoke "hudson.scm.SCM.getKey()" because "scm" is null
+	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition.getFilePathWithSuffix(CpsScmFlowDefinition.java:207)
+	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition.create(CpsScmFlowDefinition.java:149)
+	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition.create(CpsScmFlowDefinition.java:73)
+	at PluginClassLoader for workflow-job//org.jenkinsci.plugins.workflow.job.WorkflowRun.run(WorkflowRun.java:311)
+	at hudson.model.ResourceController.execute(ResourceController.java:101)
+	at hudson.model.Executor.run(Executor.java:460)
+[withMaven] downstreamPipelineTriggerRunListener - Failure to introspect build steps: java.io.IOException: Automation-Framework #9 did not yet start
+[withMaven] downstreamPipelineTriggerRunListener - Failure to introspect build steps: java.io.IOException: Automation-Framework #9 did not yet start
+Finished: FAILURE
